@@ -1,0 +1,38 @@
+.form{
+    width:800px;
+    padding-top: 50px;
+    margin: auto;
+    height:100px;
+}
+
+#main_heading_add{
+    text-align: center;
+    font-family: calibri;
+    font-size: 60px;
+    font-weight: bold;
+    color:grey;
+    margin-top: 30px;
+}
+
+#empId{
+    text-align: center;
+    width:300px;
+    margin-left:30%;
+    margin-bottom: 20px;
+}
+#empId>input{
+    text-align: center;
+    margin-bottom: 20px;
+}
+#empId>form>button{
+    margin-top: 20px;
+}
+
+
+
+
+#id_input{
+    display:flex;
+    width:47%;
+    margin-bottom: -14%;
+}

@@ -1,0 +1,31 @@
+.body{
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+.Main{
+    text-align: center;
+    color:grey;
+    font-size: 80px;
+}
+
+#employee_button{
+    margin-right: 30px;
+    width:200px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.table{
+    color:white;
+    margin:auto;
+    margin-bottom:20px;
+    margin-top:20px;
+    width:60%
+}
+
+.heading{
+    font-size: 50px;
+    font-weight: bold;
+}
