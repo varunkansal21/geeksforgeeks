@@ -67,12 +67,26 @@ app.post('/updateEmployee',(req, res) => {
   console.log(name);
   console.log(doj);
   console.log(dol);
-  let data1= [id];
-  let sql1= "UPDATE EMPLOYEE SET DOL = '00-00-0000' WHERE ID = ? ";
-  let query1=con.query(sql1,data1,(err,results)=>{
+  // let data1= [id];
+  // let sql1= "UPDATE EMPLOYEE SET DOL = '00-00-0000' WHERE ID = ? ";
+  // let query1=con.query(sql1,data1,(err,results)=>{
 
-  });
+  // });
+  if(dol===""){
+    console.log("hiii");
+    let data= [name,doj,id];
+    let sql = "UPDATE EMPLOYEE SET NAME = ? , DOJ = ?  WHERE ID = ?";
+    let query = con.query(sql, data,(err, results) => {
+      if(err){
+        // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+        return console.error(error.message);
+      }
+      res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+    });
+    return;
+  }
   let data= [name,doj,dol,id];
+  console.log("yoo");
   let sql = "UPDATE EMPLOYEE SET NAME = ? , DOJ = ? , DOL = ? WHERE ID = ?";
   let query = con.query(sql, data,(err, results) => {
     if(err){

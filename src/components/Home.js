@@ -15,7 +15,7 @@ function Home() {
         <Link to="/adduser">
                 <button type="button" class="btn btn-outline-secondary" id='employee_button'>NEW EMPLOYEE</button>
         </Link>
-        <Link to="/update">
+        <Link to="/existing">
                 <button type="button" class="btn btn-outline-secondary" id='employee_button'>UPDATE EMPLOYEE</button>
         </Link>
         <Link to="/addreport">

@@ -27,11 +27,9 @@ function Add() {
         body: JSON.stringify({id,Name,doj,dol})
 
     });
-    // console.log(email, password);
-    // console.log(email, firstName,secondName);
     const json = await response.json();
     if(json.status === 200){
-        alert("Employee added!")
+        alert("Employee Updated!")
         navigate1('/');
         
     }
@@ -68,19 +66,6 @@ var [users,setUsers] = useState([]);
         else{
             document.getElementById("dol").value= users[0].DOL.slice(0,10);
         }
-
-        // document.getElementById("first").disabled = false;
-        // document.getElementById("second").disabled = false;
-        // document.getElementById("mail").disabled = false;
-        // document.getElementById("mobile").disabled = false;
-        // document.getElementById("position").disabled = false;
-        // document.getElementById("age").disabled = false;
-        // document.getElementById("address").disabled = false;
-        // document.getElementById("city").disabled = false;
-        // document.getElementById("state").disabled = false;
-        // document.getElementById("inputZip").disabled = false;
-
-        // document.getElementById("id").disabled = true;
     }
     
 
@@ -100,7 +85,7 @@ const onChange2 = (e)=>{
             <form onSubmit={handleFetch} >
                 <label for="inputName4">Employee Id *</label>
                 <div style={{"width":"47%","display":"flex"}}>
-                    <input type="number" name="id" class="form-control" id="id" placeholder="Employee Id" onChange={onChange2}/>
+                    <input type="number" name="id" class="form-control" id="id" placeholder="Employee Id" onChange={onChange2} />
                     <button type="submit"  class="btn btn-primary">Fetch</button>
                 </div>
             </form>
@@ -109,18 +94,18 @@ const onChange2 = (e)=>{
                     
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Name *</label>
-                    <input type="text" name="Name" class="form-control" id="name"  placeholder="Name" onChange={onChange1}/>
+                    <input type="text" name="Name" class="form-control" id="name"  placeholder="Name" onChange={onChange1} />
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputName4">Date of Joining *</label>
-                    <input type="date" name="doj" class="form-control" id="doj" placeholder="" onChange={onChange1}/>
+                    <input type="date" name="doj" class="form-control" id="doj" placeholder="" onChange={onChange1} />
                     </div>
                 </div>
                 <div class="form-row">
                     
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Date of Leaving</label>
-                    <input type="date" name="dol" class="form-control" id="dol" placeholder="" onChange={onChange1}/>
+                    <input type="date" name="dol" class="form-control" id="dol" placeholder="" onChange={onChange1} />
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary" >Update</button>
