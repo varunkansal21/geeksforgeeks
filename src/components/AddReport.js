@@ -111,7 +111,7 @@ function AddReport() {
             <h6 id="warning">Note: Report will be added in today's Date.</h6>
             <form onSubmit={handleFetch} >
                 <label for="inputName4">Employee Id *</label>
-                <div style={{"width":"47%","display":"flex"}}>
+                <div id="fetchBox">
                     <input type="number" name="id" class="form-control" id="id" placeholder="Employee Id" onChange={onChange2} disabled={false} />
                     <button type="submit"  class="btn btn-primary">Fetch</button>
                 </div>

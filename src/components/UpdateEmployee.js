@@ -98,11 +98,11 @@ const onChange2 = (e)=>{
     <>
     <Navbar/>
       <div className='form'>
-            <h1>Update Employee Details</h1>
+            <h1 id="overHeading">Update Employee Details</h1>
             <h6 id="warning">Note: Details Updated can't be Undo.</h6>
             <form onSubmit={handleFetch} >
                 <label for="inputName4">Employee Id *</label>
-                <div style={{"width":"47%","display":"flex"}}>
+                <div  id="fetchBox">
                     <input type="number" name="id" class="form-control" id="id" placeholder="Employee Id" onChange={onChange2} disabled={false} />
                     <button type="submit"  class="btn btn-primary">Fetch</button>
                 </div>

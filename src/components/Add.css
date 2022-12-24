@@ -6,11 +6,18 @@
 }
 
 .form{
-    width:800px;
+    width:80%;
     padding-top: 50px;
     margin: auto;
     height:100px;
 }
+#fetch{
+    width:47%;
+    display: flex;
+}
+
+
+
 
 #main_heading_add{
     text-align: center;
@@ -59,4 +66,20 @@
 #warning{
     color:red;
     font-size: 13px;
+}
+
+@media screen and (max-width: 950px){
+    #overHeading{
+        font-size: 25px;
+    }
+    #fetchBox{
+        width:100%;
+        display: flex;
+    }
+    #table{
+        width:50%;
+        margin:auto;
+        font-size: 12px;
+        margin-top: 30px;
+    }
 }
