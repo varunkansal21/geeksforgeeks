@@ -13,7 +13,7 @@ function Home() {
             TEAM REPORT
         </h1>
         <Link to="/adduser">
-                <button type="button" class="btn btn-outline-secondary" id='employee_button'>NEW EMPLOYEE</button>
+                <button type="button" class="btn btn-outline-secondary" id='employee_button'>ADD EMPLOYEE</button>
         </Link>
         <Link to="/existing">
                 <button type="button" class="btn btn-outline-secondary" id='employee_button'>UPDATE EMPLOYEE</button>
@@ -21,7 +21,7 @@ function Home() {
         <Link to="/addreport">
                 <button type="button" class="btn btn-outline-secondary" id='employee_button'>ADD REPORT</button>
         </Link>
-        <Link to="view">
+        <Link to="/view">
                 <button type="button" class="btn btn-outline-secondary" id='employee_button'>VIEW REPORT</button>
         </Link>
         

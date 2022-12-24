@@ -4,6 +4,9 @@ import Home from './components/Home';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 import Add from './components/Add';
 import UpdateEmployee from "./components/UpdateEmployee"
+import AddReport from './components/AddReport';
+import ViewReport from './components/ViewReport';
+import SuperView from './components/SuperView';
 
 function App() {
   return (
@@ -13,8 +16,9 @@ function App() {
         <Route exact path="/" element={<Home/>}/>
         <Route exact path="/adduser" element={<Add/>}/>
         <Route exact path="/existing" element={<UpdateEmployee/>}/>
-        <Route exact path="/addreport" element={<Add/>}/>
-        <Route exact path="/view" element={<Add/>}/>
+        <Route exact path="/addreport" element={<AddReport/>}/>
+        <Route exact path="/view" element={<ViewReport/>}/>
+        <Route exact path="/superView" element={<SuperView/>}/>
       </Routes>
     </BrowserRouter>
    </>

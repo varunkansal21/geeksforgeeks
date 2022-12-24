@@ -30,7 +30,7 @@ app.post('/addEmployee',(req, res) => {
   let doj=req.body.doj;
   let dol=req.body.dol;
   dol=null;
- 
+ console.log(doj);
 
   let data= {id,name,doj,dol};
   let sql = "INSERT INTO EMPLOYEE SET ?";
@@ -67,18 +67,12 @@ app.post('/updateEmployee',(req, res) => {
   console.log(name);
   console.log(doj);
   console.log(dol);
-  // let data1= [id];
-  // let sql1= "UPDATE EMPLOYEE SET DOL = '00-00-0000' WHERE ID = ? ";
-  // let query1=con.query(sql1,data1,(err,results)=>{
-
-  // });
+  
   if(dol===""){
-    console.log("hiii");
     let data= [name,doj,id];
     let sql = "UPDATE EMPLOYEE SET NAME = ? , DOJ = ?  WHERE ID = ?";
     let query = con.query(sql, data,(err, results) => {
       if(err){
-        // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
         return console.error(error.message);
       }
       res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
@@ -86,11 +80,9 @@ app.post('/updateEmployee',(req, res) => {
     return;
   }
   let data= [name,doj,dol,id];
-  console.log("yoo");
   let sql = "UPDATE EMPLOYEE SET NAME = ? , DOJ = ? , DOL = ? WHERE ID = ?";
   let query = con.query(sql, data,(err, results) => {
     if(err){
-      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
       return console.error(error.message);
     }
     res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
@@ -98,6 +90,117 @@ app.post('/updateEmployee',(req, res) => {
 });
 
 
+// show Employees Name
+app.get('/showEmployees',(req, res) => {
+  let sql = "SELECT NAME FROM EMPLOYEE ORDER BY ASC";
+  let query = con.query(sql, (err, results) => {
+    if(err){
+      res.send(JSON.stringify());
+    }
+    res.send(JSON.stringify(results));
+  });
+}); 
+
+
+// show Employees Task
+app.get('/showTasks',(req, res) => {
+  let sql = "SELECT NAME FROM TASK ORDER BY NAME ASC";
+  let query = con.query(sql, (err, results) => {
+    if(err){
+      res.send(JSON.stringify());
+    }
+    res.send(JSON.stringify(results));
+  });
+}); 
+
+// Add report
+app.post('/addReport',(req, res) => {
+  let entryid= req.body.id;
+
+  let nametask=req.body.task;
+  let successful=req.body.success;
+  let unsuccessful=req.body.unsuccess;
+  let total=req.body.total;
+  let others=req.body.others;
+  let date_ob= new Date();
+  let date = date_ob.getDate();
+  let month = date_ob.getMonth() + 1;
+  let year = date_ob.getFullYear();
+  let added=year+"-"+month+"-"+date;
+ 
+
+  let data= {entryid,nametask,successful,unsuccessful,added,total,others};
+  console.log(data);
+  let sql = "INSERT INTO ENTRIES SET ?";
+  let query = con.query(sql, data,(err, results) => {
+    if(err){
+      res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+    }
+    res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+  });
+});
+
+// View particular employee report
+app.post('/showParticularReport',(req, res) => {
+  let entryid= req.body.id;
+  let name=req.body.Name;
+  let nametask=req.body.task;
+  let from = req.body.from;
+  let to=req.body.to;
+  let query = con.query("SELECT NAMETASK,SUM(SUCCESSFUL) AS SUCCESSFUL, SUM(UNSUCCESSFUL) AS UNSUCCESSFUL, SUM(TOTAL) AS TOTAL FROM ENTRIES WHERE NAMETASK = ? AND ADDED>= ? AND ADDED<= ? GROUP BY ?",[nametask,from,to,entryid], (err, results) => {
+
+    if(err){
+      res.send(JSON.stringify());
+    }
+    res.send(JSON.stringify(results));
+  });
+}); 
+
+// View particular employee all report
+app.post('/showAllReport',(req, res) => {
+  let entryid= req.body.id;
+  let name=req.body.Name;
+  let nametask=req.body.task;
+  let from = req.body.from;
+  let to=req.body.to;
+  let query = con.query("SELECT NAMETASK,SUM(SUCCESSFUL) AS SUCCESSFUL, SUM(UNSUCCESSFUL) AS UNSUCCESSFUL, SUM(TOTAL) AS TOTAL FROM ENTRIES WHERE ADDED>= ? AND ADDED<= ? GROUP BY ?,NAMETASK",[from,to,entryid], (err, results) => {
+
+    if(err){
+      res.send(JSON.stringify());
+    }
+    res.send(JSON.stringify(results));
+  });
+}); 
+
+
+
+// View All employees particular task report
+app.post('/showParticularEmployeeReport',(req, res) => {
+  let nametask=req.body.task;
+  let from = req.body.from;
+  let to=req.body.to;
+  let query = con.query("SELECT (SELECT NAME FROM EMPLOYEE WHERE ID=ENTRYID) AS NAME,NAMETASK, SUM(SUCCESSFUL) AS SUCCESSFUL, SUM(UNSUCCESSFUL) AS UNSUCCESSFUL,SUM(TOTAL) AS TOTAL FROM  ENTRIES WHERE NAMETASK = ? AND  ADDED>= ? AND ADDED<= ? GROUP BY ENTRYID ORDER BY NAME ASC",[nametask,from,to], (err, results) => {
+
+    if(err){
+      res.send(JSON.stringify());
+    }
+    res.send(JSON.stringify(results));
+  });
+});
+
+// View All employee all report
+app.post('/showAllEmployeeReport',(req, res) => {
+  let from = req.body.from;
+  let to=req.body.to;
+  let query = con.query("SELECT (SELECT NAME FROM EMPLOYEE WHERE ID=ENTRYID) AS NAME,NAMETASK , SUM(SUCCESSFUL) AS SUCCESSFUL, SUM(UNSUCCESSFUL) AS UNSUCCESSFUL,SUM(TOTAL) AS TOTAL FROM  ENTRIES WHERE ADDED>= ? AND ADDED<= ? GROUP BY ENTRYID, NAMETASK ORDER BY NAME ASC",[from,to], (err, results) => {
+
+    if(err){
+      res.send(JSON.stringify());
+    }
+    console.log(results);
+    res.send(JSON.stringify(results));
+  });
+}); 
 
 
 const port = 5000;

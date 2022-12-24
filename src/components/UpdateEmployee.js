@@ -13,6 +13,9 @@ function Add() {
 
   const handleSignup = async (e)=>{
     e.preventDefault();
+    if(window.confirm("Are you sure the details updated are correct ? ")==false){
+        return;
+      }
     const {id}= credentials2;
 
     const  Name=document.getElementById("name").value;
@@ -59,13 +62,26 @@ var [users,setUsers] = useState([]);
         console.log(users[0]);
         document.getElementById("id").value=users[0].ID;
         document.getElementById("name").value=users[0].NAME;
-        document.getElementById("doj").value= users[0].DOJ.slice(0,10);
+        var today = new Date(users[0].DOJ.slice(0,10));
+        var tomorrow = new Date(today);
+        tomorrow.setDate(today.getUTCDate()+1);
+        tomorrow.setMonth(today.getUTCMonth());
+        var current= today.getFullYear()+"-"+(today.getUTCMonth()+1)+"-"+tomorrow.getDate();
+        document.getElementById("doj").value=current;
         if(users[0].DOL==null){
             document.getElementById("dol").value=null; 
         }
         else{
-            document.getElementById("dol").value= users[0].DOL.slice(0,10);
+            var today = new Date(users[0].DOL.slice(0,10));
+            var tomorrow = new Date(today);
+            tomorrow.setDate(today.getUTCDate()+1);
+            tomorrow.setMonth(today.getUTCMonth());
+            var current= today.getFullYear()+"-"+(today.getUTCMonth()+1)+"-"+tomorrow.getDate();
+            document.getElementById("dol").value=current;
+            document.getElementById("dol").disabled=true;
+            document.getElementById("update").disabled=true;
         }
+        document.getElementById("id").disabled=true;
     }
     
 
@@ -85,7 +101,7 @@ const onChange2 = (e)=>{
             <form onSubmit={handleFetch} >
                 <label for="inputName4">Employee Id *</label>
                 <div style={{"width":"47%","display":"flex"}}>
-                    <input type="number" name="id" class="form-control" id="id" placeholder="Employee Id" onChange={onChange2} />
+                    <input type="number" name="id" class="form-control" id="id" placeholder="Employee Id" onChange={onChange2} disabled={false} />
                     <button type="submit"  class="btn btn-primary">Fetch</button>
                 </div>
             </form>
@@ -94,21 +110,21 @@ const onChange2 = (e)=>{
                     
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Name *</label>
-                    <input type="text" name="Name" class="form-control" id="name"  placeholder="Name" onChange={onChange1} />
+                    <input type="text" name="Name" class="form-control" id="name" disabled  placeholder="Name" onChange={onChange1} />
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputName4">Date of Joining *</label>
-                    <input type="date" name="doj" class="form-control" id="doj" placeholder="" onChange={onChange1} />
+                    <input type="date" name="doj" class="form-control" id="doj" placeholder="" disabled onChange={onChange1} />
                     </div>
                 </div>
                 <div class="form-row">
                     
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Date of Leaving</label>
-                    <input type="date" name="dol" class="form-control" id="dol" placeholder="" onChange={onChange1} />
+                    <input type="date" name="dol" class="form-control" id="dol" placeholder="" disabled={false} onChange={onChange1} />
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" >Update</button>
+                <button type="submit" id="update" class="btn btn-primary" disabled={false} >Update</button>
             </form>
         </div>
     </>

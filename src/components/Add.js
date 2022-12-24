@@ -13,6 +13,22 @@ function Add() {
 
   const handleSignup = async (e)=>{
     e.preventDefault();
+    if(document.getElementById("id").value.length==0){
+      window.alert("Employee Id cannot be left empty");
+      return;
+    }
+
+    if(document.getElementById("Name").value.length<=2){
+      window.alert("Name should be atleast of 3 characters");
+      return;
+    }
+    if(document.getElementById("doj").value.length==0){
+      window.alert("Date of joining cannot be left empty");
+      return;
+    }
+    if(window.confirm("Are you sure the details entered are correct ? ")==false){
+      return;
+    }
     
     const {id,Name,doj,dol} = credentials1;
     const response = await fetch("http://localhost:5000/addEmployee", {
@@ -52,17 +68,17 @@ function Add() {
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label for="inputName4">Employee Id *</label>
-                    <input type="number" name="id" class="form-control"  placeholder="Employee Id" onChange={onChange1}/>
+                    <input type="number" name="id" class="form-control" id="id" placeholder="Employee Id" onChange={onChange1}/>
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Name *</label>
-                    <input type="text" name="Name" class="form-control"  placeholder="Name" onChange={onChange1}/>
+                    <input type="text" name="Name" class="form-control" id="Name"  placeholder="Name" onChange={onChange1}/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label for="inputName4">Date of Joining *</label>
-                    <input type="date" name="doj" class="form-control"  placeholder="Employee Id" onChange={onChange1}/>
+                    <input type="date" name="doj" class="form-control" id="doj" placeholder="Employee Id" onChange={onChange1}/>
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Date of Leaving</label>
