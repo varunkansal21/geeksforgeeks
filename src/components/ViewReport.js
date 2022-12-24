@@ -1,19 +1,39 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
 function ViewReport() {
 
   const [credentials1, setCredentials1] = useState({id:"", Name: "", task:"",from:"", to:""});
-  let navigate1 = useNavigate();
 
 
   var [users,setUsers] = useState([]);
     
   const handleFetch = async (e)=>{
       e.preventDefault();
+
+      if(document.getElementById("id").value.length===0){
+        window.alert("Please enter Employee Id");
+        return;
+      }
+      if(document.getElementById("task").value==="Choose.."){
+        window.alert("Please choose one task");
+        return;
+      }
+
+      if(document.getElementById("from").value.length===0){
+        window.alert("Please choose from date");
+        return;
+      }
+
+      if(document.getElementById("to").value.length===0){
+        window.alert("Please choose to date");
+        return;
+      }
+
+
       console.log("hello");
       const {id,Name,task,from,to} = credentials1;
       if(task==="All"){
@@ -72,7 +92,7 @@ const fetchUsers1 = async() => {
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label for="inputName4">Employee Id *</label>
-                    <input type="number" name="id" class="form-control"  placeholder="Employee Id" onChange={onChange1}/>
+                    <input type="number" id="id" name="id" class="form-control"  placeholder="Employee Id" onChange={onChange1}/>
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Name *</label>
@@ -81,7 +101,7 @@ const fetchUsers1 = async() => {
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                    <label for="inputPassword4">Task</label>
+                    <label for="inputPassword4">Task *</label>
                     <select id="task" class="form-control" name="task"  onChange={onChange1}>
                         <option disabled selected>
                           Choose..
@@ -100,14 +120,14 @@ const fetchUsers1 = async() => {
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputName4">From Date *</label>
-                    <input type="date" name="from" class="form-control"  placeholder="from" onChange={onChange1}/>
+                    <input type="date" id="from" name="from" class="form-control"  placeholder="from" onChange={onChange1}/>
                     </div>
                     
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">To Date *</label>
-                    <input type="date" name="to" class="form-control"  placeholder="to" onChange={onChange1} />
+                    <input type="date"id="to" name="to" class="form-control"  placeholder="to" onChange={onChange1} />
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary" >Get</button>

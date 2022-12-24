@@ -9,11 +9,18 @@ app.use(bodyParser.json());
 
 var mysql = require('mysql');
 
+// var con = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "varun",
+//   database:"gfg"
+// });
+
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "varun",
-  database:"gfg"
+  host: "sql6.freesqldatabase.com",
+  user: "sql6586367",
+  password: "dGc7atBIV8",
+  database:"sql6586367"
 });
 
 con.connect(function(err) {
@@ -36,7 +43,9 @@ app.post('/addEmployee',(req, res) => {
   let sql = "INSERT INTO EMPLOYEE SET ?";
   let query = con.query(sql, data,(err, results) => {
     if(err){
-      res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
   });
@@ -49,7 +58,9 @@ app.post('/employeeData',(req, res) => {
   let id=req.body.id;
   let query = con.query("SELECT * FROM EMPLOYEE WHERE ID = ?",[id], (err, results) => {
     if(err){
-      res.send(JSON.stringify());
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     console.log(results);
     res.send(JSON.stringify(results));
@@ -73,7 +84,9 @@ app.post('/updateEmployee',(req, res) => {
     let sql = "UPDATE EMPLOYEE SET NAME = ? , DOJ = ?  WHERE ID = ?";
     let query = con.query(sql, data,(err, results) => {
       if(err){
-        return console.error(error.message);
+        res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
       }
       res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
     });
@@ -83,7 +96,9 @@ app.post('/updateEmployee',(req, res) => {
   let sql = "UPDATE EMPLOYEE SET NAME = ? , DOJ = ? , DOL = ? WHERE ID = ?";
   let query = con.query(sql, data,(err, results) => {
     if(err){
-      return console.error(error.message);
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
   });
@@ -95,7 +110,9 @@ app.get('/showEmployees',(req, res) => {
   let sql = "SELECT NAME FROM EMPLOYEE ORDER BY ASC";
   let query = con.query(sql, (err, results) => {
     if(err){
-      res.send(JSON.stringify());
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     res.send(JSON.stringify(results));
   });
@@ -107,7 +124,9 @@ app.get('/showTasks',(req, res) => {
   let sql = "SELECT NAME FROM TASK ORDER BY NAME ASC";
   let query = con.query(sql, (err, results) => {
     if(err){
-      res.send(JSON.stringify());
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     res.send(JSON.stringify(results));
   });
@@ -134,7 +153,9 @@ app.post('/addReport',(req, res) => {
   let sql = "INSERT INTO ENTRIES SET ?";
   let query = con.query(sql, data,(err, results) => {
     if(err){
-      res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
   });
@@ -150,7 +171,9 @@ app.post('/showParticularReport',(req, res) => {
   let query = con.query("SELECT NAMETASK,SUM(SUCCESSFUL) AS SUCCESSFUL, SUM(UNSUCCESSFUL) AS UNSUCCESSFUL, SUM(TOTAL) AS TOTAL FROM ENTRIES WHERE NAMETASK = ? AND ADDED>= ? AND ADDED<= ? GROUP BY ?",[nametask,from,to,entryid], (err, results) => {
 
     if(err){
-      res.send(JSON.stringify());
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     res.send(JSON.stringify(results));
   });
@@ -166,7 +189,9 @@ app.post('/showAllReport',(req, res) => {
   let query = con.query("SELECT NAMETASK,SUM(SUCCESSFUL) AS SUCCESSFUL, SUM(UNSUCCESSFUL) AS UNSUCCESSFUL, SUM(TOTAL) AS TOTAL FROM ENTRIES WHERE ADDED>= ? AND ADDED<= ? GROUP BY ?,NAMETASK",[from,to,entryid], (err, results) => {
 
     if(err){
-      res.send(JSON.stringify());
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     res.send(JSON.stringify(results));
   });
@@ -182,7 +207,9 @@ app.post('/showParticularEmployeeReport',(req, res) => {
   let query = con.query("SELECT (SELECT NAME FROM EMPLOYEE WHERE ID=ENTRYID) AS NAME,NAMETASK, SUM(SUCCESSFUL) AS SUCCESSFUL, SUM(UNSUCCESSFUL) AS UNSUCCESSFUL,SUM(TOTAL) AS TOTAL FROM  ENTRIES WHERE NAMETASK = ? AND  ADDED>= ? AND ADDED<= ? GROUP BY ENTRYID ORDER BY NAME ASC",[nametask,from,to], (err, results) => {
 
     if(err){
-      res.send(JSON.stringify());
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     res.send(JSON.stringify(results));
   });
@@ -195,7 +222,9 @@ app.post('/showAllEmployeeReport',(req, res) => {
   let query = con.query("SELECT (SELECT NAME FROM EMPLOYEE WHERE ID=ENTRYID) AS NAME,NAMETASK , SUM(SUCCESSFUL) AS SUCCESSFUL, SUM(UNSUCCESSFUL) AS UNSUCCESSFUL,SUM(TOTAL) AS TOTAL FROM  ENTRIES WHERE ADDED>= ? AND ADDED<= ? GROUP BY ENTRYID, NAMETASK ORDER BY NAME ASC",[from,to], (err, results) => {
 
     if(err){
-      res.send(JSON.stringify());
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
     }
     console.log(results);
     res.send(JSON.stringify(results));

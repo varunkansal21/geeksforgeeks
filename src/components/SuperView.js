@@ -1,20 +1,33 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 function SuperView() {
 
   const [credentials1, setCredentials1] = useState({task:"",from:"", to:""});
-  let navigate1 = useNavigate();
 
 
   var [users,setUsers] = useState([]);
     
   const handleFetch = async (e)=>{
       e.preventDefault();
-      console.log("hello");
+
+      if(document.getElementById("task").value==="Choose.."){
+        window.alert("Please choose one task");
+        return;
+      }
+
+      if(document.getElementById("from").value.length===0){
+        window.alert("Please choose from date");
+        return;
+      }
+
+      if(document.getElementById("to").value.length===0){
+        window.alert("Please choose to date");
+        return;
+      }
+
       const {task,from,to} = credentials1;
       if(task==="All"){
         const response = await fetch("http://localhost:5000/showAllEmployeeReport", {
@@ -67,7 +80,7 @@ const fetchUsers1 = async() => {
             <form onSubmit={handleFetch} className="mainForm">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                    <label for="inputPassword4">Task</label>
+                    <label for="inputPassword4">Task *</label>
                     <select id="task" class="form-control" name="task" placeholder='Choose...' onChange={onChange1}>
                         <option disabled selected>
                           Choose..
@@ -86,14 +99,14 @@ const fetchUsers1 = async() => {
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputName4">From Date *</label>
-                    <input type="date" name="from" class="form-control"  placeholder="from" onChange={onChange1}/>
+                    <input type="date" name="from" id="from" class="form-control"  placeholder="from" onChange={onChange1}/>
                     </div>
                     
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">To Date *</label>
-                    <input type="date" name="to" class="form-control"  placeholder="to" onChange={onChange1} />
+                    <input type="date" name="to" id="to" class="form-control"  placeholder="to" onChange={onChange1} />
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary" >Get</button>

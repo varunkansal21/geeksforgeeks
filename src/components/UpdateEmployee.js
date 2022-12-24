@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Add.css'
 import Navbar from './Navbar';
 
+
 function Add() {
 
   const [credentials2, setCredentials2] = useState({id:""});
@@ -13,7 +14,7 @@ function Add() {
 
   const handleSignup = async (e)=>{
     e.preventDefault();
-    if(window.confirm("Are you sure the details updated are correct ? ")==false){
+    if(window.confirm("Are you sure the details updated are correct ? ")===false){
         return;
       }
     const {id}= credentials2;
@@ -38,8 +39,7 @@ function Add() {
     }
     else{
         alert("Please enter all the details correctly");
-    }
-    // console.log(json);  
+    } 
 }
 
 var [users,setUsers] = useState([]);
@@ -59,25 +59,26 @@ var [users,setUsers] = useState([]);
         });
         users = await response.json();
         setUsers(users);
-        console.log(users[0]);
         document.getElementById("id").value=users[0].ID;
         document.getElementById("name").value=users[0].NAME;
         var today = new Date(users[0].DOJ.slice(0,10));
-        var tomorrow = new Date(today);
-        tomorrow.setDate(today.getUTCDate()+1);
-        tomorrow.setMonth(today.getUTCMonth());
-        var current= today.getFullYear()+"-"+(today.getUTCMonth()+1)+"-"+tomorrow.getDate();
-        document.getElementById("doj").value=current;
-        if(users[0].DOL==null){
+        console.log(today);
+        // var tomorrow = new Date(today);
+        // tomorrow.setDate(today.getUTCDate()+1);
+        // tomorrow.setMonth(today.getUTCMonth());
+        // var current= today.getFullYear()+"-"+(today.getUTCMonth()+2)+"-"+tomorrow.getDate();
+        // console.log(current);
+        document.getElementById("doj").value=today;
+        if(users[0].DOL===null){
             document.getElementById("dol").value=null; 
         }
         else{
-            var today = new Date(users[0].DOL.slice(0,10));
-            var tomorrow = new Date(today);
-            tomorrow.setDate(today.getUTCDate()+1);
-            tomorrow.setMonth(today.getUTCMonth());
-            var current= today.getFullYear()+"-"+(today.getUTCMonth()+1)+"-"+tomorrow.getDate();
-            document.getElementById("dol").value=current;
+            var today1 = new Date(users[0].DOL.slice(0,10));
+            var tomorrow1 = new Date(today1);
+            tomorrow1.setDate(today1.getUTCDate()+1);
+            tomorrow1.setMonth(today1.getUTCMonth());
+            var current1= today1.getFullYear()+"-"+(today1.getUTCMonth()+1)+"-"+tomorrow1.getDate();
+            document.getElementById("dol").value=current1;
             document.getElementById("dol").disabled=true;
             document.getElementById("update").disabled=true;
         }
@@ -98,6 +99,7 @@ const onChange2 = (e)=>{
     <Navbar/>
       <div className='form'>
             <h1>Update Employee Details</h1>
+            <h6 id="warning">Note: Details Updated can't be Undo.</h6>
             <form onSubmit={handleFetch} >
                 <label for="inputName4">Employee Id *</label>
                 <div style={{"width":"47%","display":"flex"}}>
@@ -109,11 +111,11 @@ const onChange2 = (e)=>{
                 <div class="form-row">
                     
                     <div class="form-group col-md-6">
-                    <label for="inputPassword4">Name *</label>
+                    <label for="inputPassword4">Name</label>
                     <input type="text" name="Name" class="form-control" id="name" disabled  placeholder="Name" onChange={onChange1} />
                     </div>
                     <div class="form-group col-md-6">
-                    <label for="inputName4">Date of Joining *</label>
+                    <label for="inputName4">Date of Joining</label>
                     <input type="date" name="doj" class="form-control" id="doj" placeholder="" disabled onChange={onChange1} />
                     </div>
                 </div>

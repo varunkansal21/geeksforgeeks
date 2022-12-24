@@ -11,8 +11,34 @@ function AddReport() {
     let navigate1 = useNavigate();
     const handleReport = async (e)=>{
         e.preventDefault();
+
+        if(document.getElementById("id").value.length===0){
+            window.alert("Please enter your unique Employee Id");
+            return;
+        }
+
+        if(document.getElementById("task").value==="Choose..."){
+            window.alert("Please choose one task");
+            return;
+        }
+
+        if(document.getElementById("successful").value.length===0){
+            window.alert("Please enter successful task done");
+            return;
+        }
+
+        if(document.getElementById("unsuccessful").value.length===0){
+            window.alert("Please enter unsuccessful task done");
+            return;
+        }
+
+        if(document.getElementById("total").value.length===0){
+            window.alert("Please enter total task done");
+            return;
+        }
+
         const {id}= credentials2;
-        const {Name,task,success,unsuccess,total,date,others} = credentials1;
+        const {Name,task,success,unsuccess,total,others} = credentials1;
         const response = await fetch("http://localhost:5000/addReport", {
             method: "POST",
             headers: {
@@ -23,7 +49,6 @@ function AddReport() {
 
         });
         const json = await response.json();
-        console.log("hello");
         if(json.status === 200){
             // Save the auth Token and redirect
             localStorage.setItem('token', json.authToken);
@@ -33,8 +58,7 @@ function AddReport() {
         }
         else{
             alert("Please enter all the details correctly");
-        }
-        // console.log(json);  
+        } 
     }
 
     var [users,setUsers] = useState([]);
@@ -84,6 +108,7 @@ function AddReport() {
         <Navbar/>
         <div className='form'>
             <h1>Add Report</h1>
+            <h6 id="warning">Note: Report will be added in today's Date.</h6>
             <form onSubmit={handleFetch} >
                 <label for="inputName4">Employee Id *</label>
                 <div style={{"width":"47%","display":"flex"}}>
@@ -116,17 +141,17 @@ function AddReport() {
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label for="inputName4">Successful</label>
-                    <input type="number" name="success" class="form-control"  placeholder="Successful" onChange={onChange1}/>
+                    <input type="number" name="success" class="form-control" id="successful"  placeholder="Successful" onChange={onChange1}/>
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Unsuccessful</label>
-                    <input type="number" name="unsuccess" class="form-control"  placeholder="Unsuccessful" maxlength={10}onChange={onChange1}/>
+                    <input type="number" name="unsuccess" class="form-control" id="unsuccessful" placeholder="Unsuccessful" maxlength={10}onChange={onChange1}/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label for="inputName4">Total</label>
-                    <input type="number" name="total" class="form-control"  placeholder="Total" onChange={onChange1}/>
+                    <input type="number" name="total" class="form-control" id="total" placeholder="Total" onChange={onChange1}/>
                     </div>
                     {/* <div class="form-group col-md-6">
                     <label for="inputPassword4">Date</label>

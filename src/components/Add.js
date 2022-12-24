@@ -13,7 +13,7 @@ function Add() {
 
   const handleSignup = async (e)=>{
     e.preventDefault();
-    if(document.getElementById("id").value.length==0){
+    if(document.getElementById("id").value.length===0){
       window.alert("Employee Id cannot be left empty");
       return;
     }
@@ -22,11 +22,11 @@ function Add() {
       window.alert("Name should be atleast of 3 characters");
       return;
     }
-    if(document.getElementById("doj").value.length==0){
+    if(document.getElementById("doj").value.length===0){
       window.alert("Date of joining cannot be left empty");
       return;
     }
-    if(window.confirm("Are you sure the details entered are correct ? ")==false){
+    if(window.confirm("Are you sure the details entered are correct ? ")===false){
       return;
     }
     
@@ -40,19 +40,15 @@ function Add() {
         body: JSON.stringify({id,Name,doj,dol})
 
     });
-    // console.log(email, password);
-    // console.log(email, firstName,secondName);
     const json = await response.json();
-    console.log("hello");
     if(json.status === 200){
         alert("Employee added!")
         navigate1('/');
         
     }
     else{
-        alert("Please enter all the details correctly");
-    }
-    // console.log(json);  
+        alert("Entered Employee Id already exist ");
+    } 
 }
 
   const onChange1 = (e)=>{
