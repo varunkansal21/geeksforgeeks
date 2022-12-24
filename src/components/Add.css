@@ -6,12 +6,12 @@
 }
 
 .form{
-    width:80%;
+    width:65%;
     padding-top: 50px;
     margin: auto;
     height:100px;
 }
-#fetch{
+#fetchBox{
     width:47%;
     display: flex;
 }
@@ -81,5 +81,9 @@
         margin:auto;
         font-size: 12px;
         margin-top: 30px;
+    }
+
+    .form{
+        width:80%;
     }
 }

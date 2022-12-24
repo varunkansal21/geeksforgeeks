@@ -99,7 +99,7 @@ const onChange2 = (e)=>{
     <Navbar/>
       <div className='form'>
             <h1 id="overHeading">Update Employee Details</h1>
-            <h6 id="warning">Note: Details Updated can't be Undo.</h6>
+            <h6 id="warning">Note: Details Updated can't be redo.</h6>
             <form onSubmit={handleFetch} >
                 <label for="inputName4">Employee Id *</label>
                 <div  id="fetchBox">
