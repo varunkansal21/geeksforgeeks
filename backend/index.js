@@ -9,20 +9,20 @@ app.use(bodyParser.json());
 
 var mysql = require('mysql2');
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "varun",
-  database:"gfg"
-});
-
 // var con = mysql.createConnection({
-//   host: "sql6.freesqldatabase.com",
-//   user: "sql6586367",
-//   password: "dGc7atBIV8",
-//   database:"sql6586367",
-//   port:3306,
+//   host: "localhost",
+//   user: "root",
+//   password: "varun",
+//   database:"gfg"
 // });
+
+var con = mysql.createConnection({
+  host: "sql6.freesqldatabase.com",
+  user: "sql6586367",
+  password: "dGc7atBIV8",
+  database:"sql6586367",
+  port:3306,
+});
 
 con.connect(function(err) {
     if (err) throw err;
