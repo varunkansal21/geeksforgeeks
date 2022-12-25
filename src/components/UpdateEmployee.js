@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Add.css'
 import Navbar from './Navbar';
+import moment from 'moment/moment';
 
 
 function Add() {
@@ -61,24 +62,43 @@ var [users,setUsers] = useState([]);
         setUsers(users);
         document.getElementById("id").value=users[0].ID;
         document.getElementById("name").value=users[0].NAME;
-        var today = new Date(users[0].DOJ.slice(0,10));
-        console.log(today);
-        // var tomorrow = new Date(today);
-        // tomorrow.setDate(today.getUTCDate()+1);
-        // tomorrow.setMonth(today.getUTCMonth());
-        // var current= today.getFullYear()+"-"+(today.getUTCMonth()+2)+"-"+tomorrow.getDate();
-        // console.log(current);
-        document.getElementById("doj").value=today;
+        
+        var date= moment(users[0].DOJ);
+        
+        var today=date._d;
+        var month=today.getMonth()+1;
+        
+        if(String(month).length==1){  
+            month="0"+month;
+            
+        }
+        var nowDate=today.getDate();
+        if(String(nowDate).length===1){
+            nowDate="0"+nowDate;
+        }
+        date=today.getFullYear()+"-"+(month)+"-"+nowDate;
+
+        document.getElementById("doj").value=date;
         if(users[0].DOL===null){
             document.getElementById("dol").value=null; 
         }
         else{
-            var today1 = new Date(users[0].DOL.slice(0,10));
-            var tomorrow1 = new Date(today1);
-            tomorrow1.setDate(today1.getUTCDate()+1);
-            tomorrow1.setMonth(today1.getUTCMonth());
-            var current1= today1.getFullYear()+"-"+(today1.getUTCMonth()+1)+"-"+tomorrow1.getDate();
-            document.getElementById("dol").value=current1;
+            var date1= moment(users[0].DOL);
+        
+            var today1=date1._d;
+            var month1=today1.getMonth()+1;
+            if(String(month1).length===1){
+                
+                month1="0"+month1;
+                
+            }
+            var nowDate1=today1.getDate();
+            if(String(nowDate1).length===1){
+                nowDate1="0"+nowDate1;
+            }
+            date1=today1.getFullYear()+"-"+(month1)+"-"+nowDate1;
+            // console.log(date1);
+            document.getElementById("dol").value=date1;
             document.getElementById("dol").disabled=true;
             document.getElementById("update").disabled=true;
         }
