@@ -27,7 +27,9 @@ function Navbar() {
             <li class="nav-item">
                 <Link to="/view" class="nav-link" href="#">View Report</Link>
             </li>
-
+            <li class="nav-item">
+                <Link to="/task" class="nav-link" href="#">Add Task</Link>
+            </li>
             </ul>
         </div>
         </nav>

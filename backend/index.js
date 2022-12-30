@@ -9,20 +9,20 @@ app.use(bodyParser.json());
 
 var mysql = require('mysql2');
 
-// var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "varun",
-//   database:"gfg"
-// });
-
 var con = mysql.createConnection({
-  host: "sql6.freesqldatabase.com",
-  user: "sql6586367",
-  password: "dGc7atBIV8",
-  database:"sql6586367",
-  port:3306,
+  host: "localhost",
+  user: "root",
+  password: "varun",
+  database:"gfg"
 });
+
+// var con = mysql.createConnection({
+//   host: "sql6.freesqldatabase.com",
+//   user: "sql6586367",
+//   password: "dGc7atBIV8",
+//   database:"sql6586367",
+//   port:3306,
+// });
 
 con.connect(function(err) {
     if (err) throw err;
@@ -52,6 +52,23 @@ app.post('/addEmployee',(req, res) => {
   });
 });
 
+
+// Add Task Name
+app.post('/addTask',(req, res) => {
+  let name= req.body.task;
+  dol=null;
+
+  let data= {name};
+  let sql = "INSERT INTO TASK SET ?";
+  let query = con.query(sql, data,(err, results) => {
+    if(err){
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
+    }
+    res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+  });
+});
 
 
 // Fetch Employee Details

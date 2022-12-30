@@ -125,7 +125,7 @@ function AddReport() {
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Task </label>
                     <select id="task" class="form-control" name="task"  onChange={onChange1}>
-                        <option>
+                        <option disabled>
                             Choose...
                         </option>
                         {
