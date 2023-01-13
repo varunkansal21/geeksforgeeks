@@ -4,28 +4,47 @@ const cors = require("cors");
 var router = express.Router()
 const app = express();
 
+
+
 app.use(cors());
 app.use(bodyParser.json());
 
 var mysql = require('mysql2');
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "varun",
-  database:"gfg"
-});
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDBsHXhOQAb7aaCzKlrJcA2RGcQWv8I-PQ",
+//   authDomain: "mts-report.firebaseapp.com",
+//   databaseURL: "https://mts-report-default-rtdb.firebaseio.com",
+//   projectId: "mts-report",
+//   storageBucket: "mts-report.appspot.com",
+//   messagingSenderId: "204672163497",
+//   appId: "1:204672163497:web:2d40d90fa98baf203c93b8"
+// };
+
+// firebase.initializeApp(firebaseConfig);
+
+// const db= firebase.firestore();
+
 
 // var con = mysql.createConnection({
-//   host: "sql6.freesqldatabase.com",
-//   user: "sql6586367",
-//   password: "dGc7atBIV8",
-//   database:"sql6586367",
-//   port:3306,
+//   host: "localhost",
+//   user: "root",
+//   password: "varun",
+//   database:"gfg"
 // });
 
+var con = mysql.createConnection({
+  host: "database-1.cbgxy45ubppf.ap-northeast-1.rds.amazonaws.com",
+  user: "admin",
+  password: "geeksforgeeks",
+  database:"mts",
+  port:3306,
+});
+
 con.connect(function(err) {
-    if (err) throw err;
+    if (err){
+      console.log("Not connected");
+    }
     console.log("Connected!");
     
 });
