@@ -21,7 +21,7 @@ function AddTask() {
     }
     
     const {task} = credentials1;
-    const response = await fetch("http://0.0.0.0:3000/addTask", {
+    const response = await fetch("https://ec2.amazonaws.com/addTask", {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
