@@ -21,7 +21,7 @@ function AddTask() {
     }
     
     const {task} = credentials1;
-    const response = await fetch("http://localhost:5000/addTask", {
+    const response = await fetch("https:/database-1.cbgxy45ubppf.ap-northeast-1.rds.amazonaws.com/addTask", {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
