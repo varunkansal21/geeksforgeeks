@@ -31,7 +31,7 @@ function Add() {
     }
     
     const {id,Name,doj,dol} = credentials1;
-    const response = await fetch("http://192.168.1.8/addEmployee", {
+    const response = await fetch("https://192.168.1.8/addEmployee", {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
