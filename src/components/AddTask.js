@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from "./Navbar";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import './Add.css'
 
 function AddTask() {
@@ -21,7 +22,7 @@ function AddTask() {
     }
     
     const {task} = credentials1;
-    const response = await fetch("https://database-1.cbgxy45ubppf.ap-northeast-1.rds.amazonaws.com/3306/database-1/addTask", {
+    const response = await fetch("http:localhost:5000/addTask", {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
