@@ -87,3 +87,11 @@
         width:80%;
     }
 }
+
+.login{
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}

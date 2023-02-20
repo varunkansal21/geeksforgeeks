@@ -26,20 +26,20 @@ var mysql = require('mysql2');
 // const db= firebase.firestore();
 
 
-// var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "varun",
-//   database:"gfg"
-// });
-
 var con = mysql.createConnection({
-  host: "database-1.cbgxy45ubppf.ap-northeast-1.rds.amazonaws.com",
-  user: "admin",
-  password: "geeksforgeeks",
-  database:"mts",
-  port:3306,
+  host: "localhost",
+  user: "root",
+  password: "varun",
+  database:"gfg"
 });
+
+// var con = mysql.createConnection({
+//   host: "database-1.cbgxy45ubppf.ap-northeast-1.rds.amazonaws.com",
+//   user: "admin",
+//   password: "geeksforgeeks",
+//   database:"mts",
+//   port:3306,
+// });
 
 con.connect(function(err) {
     if (err){
@@ -48,6 +48,7 @@ con.connect(function(err) {
     console.log("Connected!");
     
 });
+
 
 
 // ADD EMPLOYEE
@@ -79,6 +80,35 @@ app.post('/addTask',(req, res) => {
 
   let data= {name};
   let sql = "INSERT INTO TASK SET ?";
+  let query = con.query(sql, data,(err, results) => {
+    if(err){
+      res.send(JSON.stringify({"status":100}));
+      // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
+      return
+    }
+    res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+  });
+});
+
+// LOG IN
+app.post('/login',(req,res)=>{
+  let email=req.body.email;
+
+  let sql=con.query("SELECT PASSWORD FROM USERS WHERE EMAIL = ?",[email],(err,result)=>{
+    if(err){
+      res.send(JSON.stringify({"status":100}));
+      return;
+    }
+    res.send(JSON.stringify(result));
+  });
+});
+
+// Sign Up
+app.post('/signup',(req,res)=>{
+  let email=req.body.email;
+  let password=req.body.password;
+  let data={email,password};
+  let sql="INSERT INTO USERS SET ?";
   let query = con.query(sql, data,(err, results) => {
     if(err){
       res.send(JSON.stringify({"status":100}));

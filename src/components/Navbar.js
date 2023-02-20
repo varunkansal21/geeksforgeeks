@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Login from './Login'
 import "./Add.css"
-function Navbar() {
+function Navbar({valid,setValid}) {
+    
   return (
     <>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -15,22 +17,34 @@ function Navbar() {
             <li class="nav-item active">
                 <Link to="/" class="nav-link" >Home <span class="sr-only">(current)</span></Link>
             </li>
-            <li class="nav-item">
-                <Link to="/adduser" class="nav-link" href="#">Add Employee</Link>
-            </li>
+            {valid &&
+                <li class="nav-item">
+                    <Link to="/adduser" class="nav-link" href="#">Add Employee</Link>
+                </li> }
+
+            {valid &&
             <li class="nav-item">
                 <Link to="/existing" class="nav-link" href="#">Update Employee</Link>
             </li>
+
+            }
             <li class="nav-item">
                 <Link to="/addreport" class="nav-link" href="#">Add report</Link>
             </li>
             <li class="nav-item">
                 <Link to="/view" class="nav-link" href="#">View Report</Link>
             </li>
+
+            {valid &&
             <li class="nav-item">
                 <Link to="/task" class="nav-link" href="#">Add Task</Link>
             </li>
+
+            }    
             </ul>
+            <Link to="/login"><button className='login' >
+             { valid ? "Log out" : "Log in"}
+            </button></Link>
         </div>
         </nav>
     </>

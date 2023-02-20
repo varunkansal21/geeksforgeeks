@@ -1,0 +1,70 @@
+#otp_create{
+    display: flex;
+    width:30%;
+    height:70%;
+    justify-content: center;  
+    flex-direction: column;  
+    align-items: center;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#logo_otp_create{
+    width:30%;
+    height:20%
+
+}
+
+#otp_container{
+    width:100vw;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#otp_heading{
+    margin-top: 20px;
+    font-family: calibri;
+    font-weight: bold;
+}
+
+.create_input{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border:none;
+    height:45px;
+    text-align:center;
+    width:70%;
+    background-color: #f1f1f1;
+    border-radius: 3%;
+}
+
+#create_button{
+    border: 0;
+    border-radius: 30px;
+    height:45px;
+    width: 33%;
+    margin-top: 5px;
+    /* padding: 0.85rem; */
+    font-size: 15px;
+    margin-bottom: 20px;
+    color: #fefefe;
+    background: #0c1027;
+    transition-duration: 1s;
+}
+
+#create_button:hover{
+    background-color: red;
+}
+@media screen and (max-width: 770px){
+    #otp_create{
+        width:60%;
+        height:60%
+    }
+}
+
+@media screen and (max-width: 400px){
+    #otp_create{
+        width:80%;
+        height:50%;
+    }
+}
