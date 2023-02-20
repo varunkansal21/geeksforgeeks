@@ -3,25 +3,17 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 var router = express.Router()
 const app = express();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-
+const JWT_SECRET = "bestreact";
 
 app.use(cors());
 app.use(bodyParser.json());
 
 var mysql = require('mysql2');
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDBsHXhOQAb7aaCzKlrJcA2RGcQWv8I-PQ",
-//   authDomain: "mts-report.firebaseapp.com",
-//   databaseURL: "https://mts-report-default-rtdb.firebaseio.com",
-//   projectId: "mts-report",
-//   storageBucket: "mts-report.appspot.com",
-//   messagingSenderId: "204672163497",
-//   appId: "1:204672163497:web:2d40d90fa98baf203c93b8"
-// };
 
-// firebase.initializeApp(firebaseConfig);
 
 // const db= firebase.firestore();
 
@@ -93,29 +85,48 @@ app.post('/addTask',(req, res) => {
 // LOG IN
 app.post('/login',(req,res)=>{
   let email=req.body.email;
-
-  let sql=con.query("SELECT PASSWORD FROM USERS WHERE EMAIL = ?",[email],(err,result)=>{
-    if(err){
-      res.send(JSON.stringify({"status":100}));
+  let password=req.body.password;
+  const sql= con.query("SELECT PASSWORD FROM USERS WHERE EMAIL = ?",[email],async(err,result)=>{
+    if(err ){
+      console.log(err);
+      res.send(JSON.stringify({"status":false}));
       return;
     }
-    res.send(JSON.stringify(result));
+    if(result[0]===undefined){
+      res.send(JSON.stringify({"status":false}));
+      return;
+    }
+    const comparePassword = await bcrypt.compare(password,result[0].PASSWORD);
+    if(!comparePassword){
+      res.send(JSON.stringify({"status":false}));
+      return;
+    }
+    const authToken = jwt.sign(email, JWT_SECRET);
+    res.send(JSON.stringify({"status":true,"authToken":authToken}));
+    
+    // console.log(results +"pass1");
   });
+  
+  
 });
 
 // Sign Up
-app.post('/signup',(req,res)=>{
+app.post('/signup',async (req,res)=>{
   let email=req.body.email;
-  let password=req.body.password;
+  // let password=req.body.password;
+  const salt =await bcrypt.genSalt(10);
+  const password =await bcrypt.hash(req.body.password, salt);
   let data={email,password};
   let sql="INSERT INTO USERS SET ?";
   let query = con.query(sql, data,(err, results) => {
     if(err){
+      console.log(err);
       res.send(JSON.stringify({"status":100}));
       // res.send(JSON.stringify({"status": 204, "error": null, "response": results}));
       return
     }
-    res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+    const authToken = jwt.sign(email, JWT_SECRET);
+    res.send(JSON.stringify({"status": 200, "error": null, "response": results,"authToken":authToken}));
   });
 });
 

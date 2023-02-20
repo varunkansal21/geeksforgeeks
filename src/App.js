@@ -16,7 +16,7 @@ import Signup from './components/Signup';
 
 function App() {
 
-  const [valid,setValid]= useState(false);
+  const [valid,setValid]= useState(true);
   
   return (
    <>

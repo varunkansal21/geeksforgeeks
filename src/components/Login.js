@@ -3,9 +3,9 @@ import "./Login.css"
 import { useNavigate } from 'react-router-dom';
 import gfg from "../images/gfg.jpeg"
 import { Link } from 'react-router-dom';
-import { ReactSession } from 'react-client-session';
+// import { ReactSession } from 'react-client-session';
 
-ReactSession.setStoreType("localStorage");
+// ReactSession.setStoreType("localStorage");
 
 function Login({valid,setValid}) {
     let navigate = useNavigate();
@@ -35,7 +35,8 @@ function Login({valid,setValid}) {
         });
 
         const fetch2= await response.json();
-        if(fetch2[0].PASSWORD===password){
+        if(fetch2.status){
+          localStorage.setItem('token', fetch2.authToken);
             setValid(true);
             navigate('/')
         }
@@ -53,11 +54,12 @@ function Login({valid,setValid}) {
       <div id="otp_container">
         <div id="otp_create">
           <img src={gfg} alt=".." id="logo_otp_create"/>
-          <h2 id="otp_heading">Enter your credentials</h2>
+          <h2 id="otp_heading">Sign in</h2>
             <input type="text" name="email"  id="email" className="create_input" onChange={(e)=>setEmail(e.target.value)}placeholder='Enter Email'/>
             <input type="password" name="password" id="password" className="create_input"onChange={(e)=>setPassword(e.target.value)} placeholder='Enter Password'/>
             <button onClick={handleLogIn} id="create_button">Submit</button>
-            <Link to="/signup"><p>Don't have an account ? Create Account</p></Link>
+            <Link to="/signup"><p id="line_move"><span style={{color:"black"}}>Don't have an account ?</span> Create Account</p></Link>
+            <Link to="/forgot"><p id="line_move">Forgot Password ?</p></Link>
         </div>
         
       </div>  

@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import "./Login.css"
 import { useNavigate } from 'react-router-dom';
 import gfg from "../images/gfg.jpeg"
+import { Link } from 'react-router-dom';
 
 function Signup({valid,setValid}) {
     let navigate = useNavigate();
@@ -30,6 +31,7 @@ function Signup({valid,setValid}) {
         console.log(email,password);
         const json= await response.json();
         if(json.status===200){
+          localStorage.setItem('token', json.authToken);
             setValid(true);
             navigate('/')
         }
@@ -51,7 +53,9 @@ function Signup({valid,setValid}) {
             <input type="text" name="email"  id="email" className="create_input" onChange={(e)=>setEmail(e.target.value)}placeholder='Enter Email'/>
             <input type="password" name="password" id="password" className="create_input"onChange={(e)=>setPassword(e.target.value)} placeholder='Enter Password'/>
             <button onClick={handleLogIn} id="create_button">Submit</button>
+            <Link to="/login"><p id="line_move"><span style={{color:"black"}}>Have an account ?</span> Sign in</p></Link>
         </div>
+        
       </div>  
     </>
   )

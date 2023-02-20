@@ -25,6 +25,9 @@
     margin-top: 20px;
     font-family: calibri;
     font-weight: bold;
+    font-size: 30px;
+    margin-top:-3px;
+    
 }
 
 .create_input{
@@ -67,4 +70,8 @@
         width:80%;
         height:50%;
     }
+}
+
+#line_move{
+    font-size:13px;
 }
